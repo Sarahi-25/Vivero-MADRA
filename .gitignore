@@ -1,0 +1,14 @@
+# Dependencias
+node_modules/
+dist/
+
+# Variables de entorno (¡NUNCA subir a git!)
+.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
