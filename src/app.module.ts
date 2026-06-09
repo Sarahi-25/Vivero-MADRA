@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
 import { SalesModule } from './sales/sales.module';
@@ -12,9 +13,10 @@ import { SaleDetail } from './sale_details/entities/sale_detail.entity';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: 'postgresql://db:inQSL2QDSEHfYjnvNKfuZZ6c8lAfwL31@dpg-d8jhoh67r5hc73dt86c0-a.oregon-postgres.render.com/db_42qo',
+      url: process.env.DATABASE_URL,
       entities: [User, Product, Sale, SaleDetail],
       autoLoadEntities: true,
       synchronize: true,
@@ -22,8 +24,7 @@ import { SaleDetail } from './sale_details/entities/sale_detail.entity';
         rejectUnauthorized: false,
       },
     }),
-    
-    UsersModule,       // ← faltaban estos
+    UsersModule,
     ProductsModule,
     SalesModule,
     SaleDetailsModule,
